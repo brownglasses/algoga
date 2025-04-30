@@ -14,9 +14,9 @@ class _UserTravelInfoPageState extends State<FormPage> {
   String? _nationality;
   String? _diseaseInfo;
 
-  final List<String> ageOptions = ['10대', '20대', '30대', '40대', '50대 이상'];
-  final List<String> genderOptions = ['남성', '여성', '기타'];
-  final List<String> nationalityOptions = ['대한민국', '일본', '미국', '중국', '기타'];
+  final List<String> ageOptions = ['10s', '20s', '30s', '40s', 'more than 50s'];
+  final List<String> genderOptions = ['Men', 'Woman', 'Other'];
+  final List<String> nationalityOptions = ['korea', 'china', 'japan', 'usa', 'taiwan', 'thailand', 'vietnam', 'philippines', 'malaysia', 'singapore', 'indonesia', 'hongkong', 'australia', 'canada', 'russia', 'mongolia', 'india', 'unitedkingdom', 'germany', 'france', 'italy', 'spain', 'netherlands', 'switzerland', 'sweden', 'norway', 'denmark', 'finland', 'austria', 'belgium', 'czechrepublic', 'poland', 'turkey', 'unitedarabemirates', 'qatar', 'saudiarabia', 'kazakhstan', 'uzbekistan', 'newzealand', 'brazil', 'mexico', 'argentina', 'chile', 'southafrica', 'egypt', 'morocco', 'israel', 'myanmar', 'cambodia', 'laos', 'nepal'];
   final List<String> diseaseOptions = ['Hypertension', 'Diabetes', 'Hyperlipidemia', 'Asthma', 'Arthritis', 'UlcerativeColitis', 'CoronaryHeartDisease', 'Depression', 'AnxietyDisorder', 'ChronicObstructivePulmonaryDisease', 'Insomnia', 'AllergicRhinitis', 'GastroesophagealRefluxDisease', 'IrritableBowelSyndrome', 'Osteoporosis', 'MigraineHeadache', 'ThyroidDisorder', 'ChronicKidneyDisease', 'Eczema', 'HeartFailure', 'Anemia', 'GoutArthritis', 'SleepApnea', 'LactoseIntolerance', 'Glaucoma', 'ArrhythmiaAfib', 'BackPain', 'BenignProstaticHyperplasia', 'Osteoarthritis', 'ParkinsonsDisease', 'AlzheimersDisease'];
 
   final PageController _pageController = PageController();
