@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
 
-class UserTravelInfoPage extends StatefulWidget {
-  const UserTravelInfoPage({super.key});
+class FormPage extends StatefulWidget {
+  const FormPage({super.key});
 
   @override
-  State<UserTravelInfoPage> createState() => _UserTravelInfoPageState();
+  State<FormPage> createState() => _UserTravelInfoPageState();
 }
 
-class _UserTravelInfoPageState extends State<UserTravelInfoPage> {
+class _UserTravelInfoPageState extends State<FormPage> {
+
+  String? _age;
+  String? _gender;
+  String? _nationality;
+  String? _diseaseInfo;
+
+  final List<String> ageOptions = ['10대', '20대', '30대', '40대', '50대 이상'];
+  final List<String> genderOptions = ['남성', '여성', '기타'];
+  final List<String> nationalityOptions = ['대한민국', '일본', '미국', '중국', '기타'];
+  final List<String> diseaseOptions = ['Hypertension', 'Diabetes', 'Hyperlipidemia', 'Asthma', 'Arthritis', 'UlcerativeColitis', 'CoronaryHeartDisease', 'Depression', 'AnxietyDisorder', 'ChronicObstructivePulmonaryDisease', 'Insomnia', 'AllergicRhinitis', 'GastroesophagealRefluxDisease', 'IrritableBowelSyndrome', 'Osteoporosis', 'MigraineHeadache', 'ThyroidDisorder', 'ChronicKidneyDisease', 'Eczema', 'HeartFailure', 'Anemia', 'GoutArthritis', 'SleepApnea', 'LactoseIntolerance', 'Glaucoma', 'ArrhythmiaAfib', 'BackPain', 'BenignProstaticHyperplasia', 'Osteoarthritis', 'ParkinsonsDisease', 'AlzheimersDisease'];
+
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
@@ -38,7 +49,7 @@ class _UserTravelInfoPageState extends State<UserTravelInfoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _currentPage == 0 ? Colors.white : Colors.black,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: PageView(
           controller: _pageController,
@@ -70,32 +81,61 @@ class _UserTravelInfoPageState extends State<UserTravelInfoPage> {
             '사용자 정보를 입력해주시면\n원활한 여행 정보를 제공 해 드리겠습니다',
             style: TextStyle(fontSize: 14, color: Colors.black87),
           ),
-          const SizedBox(height: 30),
-          _buildDropdownField('사용자 연령', '나이 선택'),
-          const SizedBox(height: 15),
-          _buildDropdownField('사용자 성별', '성별을 입력해주세요'),
-          const SizedBox(height: 15),
-          _buildDropdownField('사용자 국적', '국적을 입력해주세요'),
-          const SizedBox(height: 15),
-          _buildDropdownField('질병 유무 및 정보', '질병에 관한 정보를 입력해주세요'),
+          const SizedBox(height: 48),
+          _buildLabel('사용자 연령'),
+          _buildDropdown(
+            hint: '나이 선택',
+            value: _age,
+            items: ageOptions,
+            onChanged: (v) => setState(() => _age = v),
+          ),
+          const SizedBox(height: 24),
+
+          _buildLabel('사용자 성별'),
+          _buildDropdown(
+            hint: '성별을 입력해주세요',
+            value: _gender,
+            items: genderOptions,
+            onChanged: (v) => setState(() => _gender = v),
+          ),
+          const SizedBox(height: 24),
+
+          _buildLabel('사용자 국적'),
+          _buildDropdown(
+            hint: '국적을 입력해주세요',
+            value: _nationality,
+            items: nationalityOptions,
+            onChanged: (v) => setState(() => _nationality = v),
+          ),
+          const SizedBox(height: 24),
+
+          _buildLabel('질병 유무 및 정보'),
+          _buildDropdown(
+            hint: '질병에 관한 정보를 입력해주세요',
+            value: _diseaseInfo,
+            items: diseaseOptions,
+            onChanged: (v) => setState(() => _diseaseInfo = v),
+          ),
+          const SizedBox(height: 24),
+
           const Spacer(),
+          const SizedBox(height: 48),
           Center(
-            child: ElevatedButton(
-              onPressed: _nextPage,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.lightBlue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+            child: SizedBox(
+              width: 151,
+              height: 55,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4CC7EB),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  elevation: 4,
                 ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 80,
-                  vertical: 15,
-                ),
+                onPressed: _nextPage,
+                child: const Text('다음 단계', style: TextStyle(fontSize: 18, color: Colors.white)),
               ),
-              child: const Text('다음 단계', style: TextStyle(fontSize: 16)),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
         ],
       ),
     );
@@ -103,7 +143,7 @@ class _UserTravelInfoPageState extends State<UserTravelInfoPage> {
 
   Widget _buildTravelInfoPage() {
     return Container(
-      color: Colors.black,
+      color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
@@ -115,97 +155,114 @@ class _UserTravelInfoPageState extends State<UserTravelInfoPage> {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
             const SizedBox(height: 10),
             const Text(
               '사용자 정보를 입력해주시면\n원활한 여행 정보를 제공 해 드리겠습니다',
-              style: TextStyle(fontSize: 14, color: Colors.white70),
+              style: TextStyle(fontSize: 14, color: Colors.black),
             ),
-            const SizedBox(height: 30),
-            _buildDropdownField('여행지', '여행할 지역을 선택해주세요', isDark: true),
-            const SizedBox(height: 15),
-            _buildDropdownField('여행 기간', '여행 기간을 입력해주세요', isDark: true),
-            const SizedBox(height: 15),
-            _buildDropdownField('관심사', '관심사를 선택해주세요', isDark: true),
+            const SizedBox(height: 48),
+            _buildLabel('여행지'),
+            _buildDropdown(
+              hint: '여행할 지역을 선택해주세요',
+              value: _nationality,
+              items: nationalityOptions,
+              onChanged: (v) => setState(() => _nationality = v),
+            ),
+            const SizedBox(height: 24),
+
+            _buildLabel('여행 기간'),
+            _buildDropdown(
+              hint: '여행 기간을 입력해주세요',
+              value: _nationality,
+              items: nationalityOptions,
+              onChanged: (v) => setState(() => _nationality = v),
+            ),
+            const SizedBox(height: 24),
+
+            _buildLabel('여행 단위'),
+            _buildDropdown(
+              hint: '여행 단위를 입력해주세요',
+              value: _nationality,
+              items: nationalityOptions,
+              onChanged: (v) => setState(() => _nationality = v),
+            ),
+            const SizedBox(height: 24),
+
             const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
-                  onPressed: _prevPage,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.yellow,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                SizedBox(
+                  width: 151,
+                  height: 55,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFE6D85A), // 노란색
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 15,
-                    ),
-                  ),
-                  child: const Text(
-                    '이전 단계',
-                    style: TextStyle(fontSize: 16, color: Colors.black),
+                    onPressed: _prevPage,
+                    child: const Text('이전 단계', style: TextStyle(fontSize: 18, color: Colors.white)),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    // 완료 처리
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.lightBlue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                const SizedBox(width: 16),
+                SizedBox(
+                  width: 151,
+                  height: 55,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF4CC7EB), // 하늘색
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 15,
-                    ),
+                    onPressed: () {
+
+                    },
+                    child: const Text('분석 하기', style: TextStyle(fontSize: 18, color: Colors.white)),
                   ),
-                  child: const Text('다음 단계', style: TextStyle(fontSize: 16)),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDropdownField(String label, String hint, {bool isDark = false}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: isDark ? Colors.white : Colors.black,
-          ),
+  Widget _buildLabel(String text) => Padding(
+    padding: const EdgeInsets.only(bottom: 8.0),
+    child: Text(text, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+  );
+
+  Widget _buildDropdown({
+    required String hint,
+    required String? value,
+    required List<String> items,
+    required void Function(String?) onChanged,
+  }) {
+    return Container(
+      height: 64,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black54),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+          dropdownColor: Colors.white,
+          focusColor: Colors.transparent,
+          value: value,
+          hint: Text(hint, style: const TextStyle(color: Colors.black38)),
+          isExpanded: true,
+          icon: const Icon(Icons.arrow_drop_down),
+          onChanged: onChanged,
+          items: items.map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
         ),
-        const SizedBox(height: 8),
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: DropdownButtonFormField<String>(
-            decoration: const InputDecoration(border: InputBorder.none),
-            dropdownColor: isDark ? Colors.grey[800] : Colors.white,
-            hint: Text(
-              hint,
-              style: TextStyle(color: isDark ? Colors.white70 : Colors.black54),
-            ),
-            items: [], // 실제 아이템 추가 가능
-            onChanged: (value) {},
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
